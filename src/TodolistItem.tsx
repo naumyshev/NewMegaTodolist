@@ -3,10 +3,10 @@ type Props = {
     title: string
 }
 
-export const TodolistItem = (props: Props) => {
+export const TodolistItem = ({title}: Props) => {
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>{title}</h3>
             <div>
                 <input/>
                 <button>+</button>

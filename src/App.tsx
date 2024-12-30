@@ -5,8 +5,8 @@ export const App = () => {
   return (
       <div className="app">
         <TodolistItem title={'uuu'}/>
-        <TodolistItem />
-        <TodolistItem />
+        <TodolistItem title={'aaa'}/>
+        <TodolistItem title={'xxx'}/>
       </div>
   )
 }
