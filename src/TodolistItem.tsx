@@ -4,9 +4,10 @@ import {Button} from "./Button.tsx";
 type Props = {
     title: string
     tasks: TaskType[]
+    deleteTask: (id: number) => void
 }
 
-export const TodolistItem = ({title, tasks}: Props) => {
+export const TodolistItem = ({title, tasks, deleteTask}: Props) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -23,6 +24,7 @@ export const TodolistItem = ({title, tasks}: Props) => {
                                 <li key={task.id}>
                                     <input type="checkbox" checked={task.isDone}/>
                                     <span>{task.title}</span>
+                                    <button onClick={()=>deleteTask(task.id)}>x</button>
                                 </li>
                             )
                         })}
