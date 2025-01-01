@@ -9,6 +9,7 @@ type Props = {
 }
 
 export const TodolistItem = ({title, tasks, deleteTask, changeFilter}: Props) => {
+
     return (
         <div>
             <h3>{title}</h3>
