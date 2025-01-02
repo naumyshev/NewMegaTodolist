@@ -1,6 +1,6 @@
 import {FilterValues, TaskType} from "./App.tsx";
 import {Button} from "./Button.tsx";
-import {useRef} from "react";
+import {useState} from "react";
 
 type Props = {
     title: string
@@ -12,18 +12,21 @@ type Props = {
 
 export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: Props) => {
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const[taskTitle, setTaskTitle] = useState<string>("");
 
     return (
         <div>
             <h3>{title}</h3>
             <div>
-                <input ref={inputRef} />
-                <button onClick={()=>{
-                    if(inputRef.current){
-                        createTask(inputRef.current.value)
-                    }
-                }}>+</button>
+                <input
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                />
+                <Button title={'+'} onClick={() => {
+                    createTask(taskTitle)
+                    setTaskTitle('')
+                }
+                }/>
             </div>
             {tasks.length === 0
                 ? <p>No tasks</p>
@@ -34,7 +37,7 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
                                 <li key={task.id}>
                                     <input type="checkbox" checked={task.isDone}/>
                                     <span>{task.title}</span>
-                                    <Button title={'x'} onClick={()=>deleteTask(task.id)} />
+                                    <Button title={'x'} onClick={() => deleteTask(task.id)}/>
                                 </li>
                             )
                         })}
@@ -43,9 +46,9 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
             }
 
             <div>
-                <Button title={'All'} onClick={()=>changeFilter('all')}/>
-                <Button title={'Active'} onClick={()=>changeFilter('active')}/>
-                <Button title={'Completed'} onClick={()=>changeFilter('completed')}/>
+                <Button title={'All'} onClick={() => changeFilter('all')}/>
+                <Button title={'Active'} onClick={() => changeFilter('active')}/>
+                <Button title={'Completed'} onClick={() => changeFilter('completed')}/>
             </div>
         </div>
     );
