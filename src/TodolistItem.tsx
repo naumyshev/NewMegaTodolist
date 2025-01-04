@@ -14,12 +14,15 @@ type Props = {
 export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, changeTaskStatus}: Props) => {
 
     const [taskTitle, setTaskTitle] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
 
     const createTaskHandler = () => {
         const trimmedTaskTitle = taskTitle.trim()
         if(trimmedTaskTitle !== ''){
             createTask(trimmedTaskTitle)
             setTaskTitle('')
+        } else {
+            setError('Title is required')
         }
 
     }
@@ -36,6 +39,7 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
 
     const changeTaskTitleHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setTaskTitle(e.target.value)
+        setError(null)
     }
 
     const changeTaskStatusHandler = (e:ChangeEvent<HTMLInputElement>, id: string) => {
@@ -48,11 +52,13 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
             <h3>{title}</h3>
             <div>
                 <input
+                    className={error ? 'error' : ''}
                     value={taskTitle}
                     onChange={changeTaskTitleHandler}
                     onKeyDown={createTaskOnEnterHandler}
                 />
                 <Button title={'+'} onClick={createTaskHandler}/>
+                {error && <div className="error-message">{error}</div>}
             </div>
             {tasks.length === 0
                 ? <p>No tasks</p>
