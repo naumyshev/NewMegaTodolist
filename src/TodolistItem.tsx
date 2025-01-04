@@ -67,7 +67,7 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
                     <ul>
                         {tasks.map(task => {
                             return (
-                                <li key={task.id}>
+                                <li className={task.isDone ? 'is-done': ''} key={task.id}>
                                     <input
                                         type="checkbox"
                                         checked={task.isDone}
@@ -84,8 +84,8 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
 
             <div>
                 <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilter('all')}/>
-                <Button className={filter === 'active' ? 'active-filter' : ''}title={'Active'} onClick={() => changeFilter('active')}/>
-                <Button className={filter === 'completed' ? 'active-filter' : ''}title={'Completed'} onClick={() => changeFilter('completed')}/>
+                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilter('active')}/>
+                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilter('completed')}/>
             </div>
         </div>
     );
