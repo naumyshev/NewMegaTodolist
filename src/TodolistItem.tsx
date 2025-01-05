@@ -5,10 +5,10 @@ import {ChangeEvent, KeyboardEvent, useState} from "react";
 type Props = {
     todolist: Todolist
     tasks: TaskType[]
-    deleteTask: (id: string) => void
+    deleteTask: (todolistId: string, id: string) => void
     changeFilter: (todolistId: string, filter: FilterValues) => void
-    createTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    createTask: (todolistId: string, title: string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
 }
 
 export const TodolistItem = (props: Props) => {
@@ -28,7 +28,7 @@ export const TodolistItem = (props: Props) => {
     const createTaskHandler = () => {
         const trimmedTaskTitle = taskTitle.trim()
         if(trimmedTaskTitle !== ''){
-            createTask(trimmedTaskTitle)
+            createTask(id, trimmedTaskTitle)
             setTaskTitle('')
         } else {
             setError('Title is required')
@@ -38,12 +38,13 @@ export const TodolistItem = (props: Props) => {
 
     const createTaskOnEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-                createTask(taskTitle)
+                //createTask(id, taskTitle)
+            createTaskHandler()
         }
     }
 
-    const deleteTaskHandler = (id: string) => {
-        deleteTask(id)
+    const deleteTaskHandler = (taskId: string) => {
+        deleteTask(id, taskId)
     }
 
     const changeTaskTitleHandler = (e:ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +52,13 @@ export const TodolistItem = (props: Props) => {
         setError(null)
     }
 
-    const changeTaskStatusHandler = (e:ChangeEvent<HTMLInputElement>, id: string) => {
+    const changeTaskStatusHandler = (e:ChangeEvent<HTMLInputElement>, taskId: string) => {
         const newStatusValue = e.currentTarget.checked
-        changeTaskStatus(id, newStatusValue)
+        changeTaskStatus(id, taskId, newStatusValue)
+    }
+
+    const changeFilterHandler = (filter: FilterValues) => {
+        changeFilter(id, filter)
     }
 
     return (
@@ -91,9 +96,9 @@ export const TodolistItem = (props: Props) => {
             }
 
             <div>
-                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilter(id, 'all')}/>
-                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilter(id, 'active')}/>
-                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilter(id, 'completed')}/>
+                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilterHandler('all')}/>
+                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilterHandler('active')}/>
+                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilterHandler('completed')}/>
             </div>
         </div>
     );
