@@ -9,7 +9,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-type Todolist = {
+export type Todolist = {
     id: string
     title: string
     filter: FilterValues
@@ -19,7 +19,7 @@ export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
 
-    const [todolist, setTodolist] = useState<Todolist[]>([
+    const [todolists, setTodolists] = useState<Todolist[]>([
         {id: v1(), title: 'What to learn', filter: 'all'},
         {id: v1(), title: 'What to buy', filter: 'all'}
     ])
@@ -31,22 +31,12 @@ export const App = () => {
         {id: v1(), title: 'Redux', isDone: false}
     ])
 
-    const [filter, setFilter] = useState<FilterValues>('all')
-
-    let filteredTasks = tasks
-    if(filter === 'active') {
-        filteredTasks = tasks.filter(t => !t.isDone)
-    }
-    if(filter === 'completed') {
-        filteredTasks = tasks.filter(t => t.isDone)
-    }
-
     const deleteTask = (id: string) => {
         setTasks(tasks.filter(t=> t.id !== id))
     }
 
-    const changeFilter = (filter: FilterValues) => {
-        setFilter(filter)
+    const changeFilter = (todolistId: string, filter: FilterValues) => {
+        setTodolists(todolists.map(td=>td.id ===todolistId ? {...td, filter: filter} : td))
     }
 
     const createTask = (title: string) => {
@@ -59,16 +49,25 @@ export const App = () => {
 
     return (
         <div className="app">
-            {todolist.map(td=> {
+            {todolists.map(td=> {
+
+                let filteredTasks = tasks
+                if(td.filter === 'active') {
+                    filteredTasks = tasks.filter(t => !t.isDone)
+                }
+                if(td.filter === 'completed') {
+                    filteredTasks = tasks.filter(t => t.isDone)
+                }
+
                 return(
                     <TodolistItem
-                        title={td.title}
+                        key={td.id}
+                        todolist={td}
                         tasks={filteredTasks}
                         deleteTask={deleteTask}
                         changeFilter={changeFilter}
                         createTask={createTask}
                         changeTaskStatus={changeTaskStatus}
-                        filter={filter}
                     />
                 )
             })}

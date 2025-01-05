@@ -1,18 +1,26 @@
-import {FilterValues, TaskType} from "./App.tsx";
+import {FilterValues, TaskType, Todolist} from "./App.tsx";
 import {Button} from "./Button.tsx";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type Props = {
-    title: string
+    todolist: Todolist
     tasks: TaskType[]
     deleteTask: (id: string) => void
-    changeFilter: (filter: FilterValues) => void
+    changeFilter: (todolistId: string, filter: FilterValues) => void
     createTask: (title: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
-    filter: FilterValues
 }
 
-export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, changeTaskStatus, filter}: Props) => {
+export const TodolistItem = (props: Props) => {
+
+    const {
+        todolist: {id, title, filter},
+        tasks,
+        deleteTask,
+        changeFilter,
+        createTask,
+        changeTaskStatus
+    } = props
 
     const [taskTitle, setTaskTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -83,9 +91,9 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
             }
 
             <div>
-                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilter('all')}/>
-                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilter('active')}/>
-                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilter('completed')}/>
+                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilter(id, 'all')}/>
+                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilter(id, 'active')}/>
+                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilter(id, 'completed')}/>
             </div>
         </div>
     );
