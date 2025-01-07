@@ -115,4 +115,3 @@ export const TodolistItem = (props: Props) => {
         </div>
     );
 };
-

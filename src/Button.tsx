@@ -9,4 +9,3 @@ export const Button = ({title, onClick, className}: Props) => {
         <button className={className} onClick={onClick}>{title}</button>
     );
 };
-
