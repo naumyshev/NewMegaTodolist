@@ -2,6 +2,7 @@ import {FilterValues, TaskType, Todolist} from "./App.tsx";
 import {Button} from "./Button.tsx";
 import {ChangeEvent} from "react";
 import {CreateItemForm} from "./CreateItemForm.tsx";
+import {EditableSpan} from "./EditableSpan.tsx";
 
 type Props = {
     todolist: Todolist
@@ -67,7 +68,7 @@ export const TodolistItem = (props: Props) => {
                                             changeTaskStatusHandler(e, task.id)
                                         }}
                                     />
-                                    <span>{task.title}</span>
+                                    <EditableSpan value={task.title} />
                                     <Button title={'x'} onClick={() => deleteTaskHandler(task.id)}/>
                                 </li>
                             )
