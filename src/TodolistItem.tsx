@@ -12,6 +12,7 @@ type Props = {
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     deleteTodolist: (todolistId: string) => void
+    changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
 }
 
 export const TodolistItem = (props: Props) => {
@@ -23,7 +24,8 @@ export const TodolistItem = (props: Props) => {
         changeFilter,
         createTask,
         changeTaskStatus,
-        deleteTodolist
+        deleteTodolist,
+        changeTaskTitle
     } = props
 
     const deleteTaskHandler = (taskId: string) => {
@@ -59,6 +61,11 @@ export const TodolistItem = (props: Props) => {
                 : (
                     <ul>
                         {tasks.map(task => {
+
+                            const changeTaskTitleHandler = (title: string) => {
+                                changeTaskTitle(id, task.id, title)
+                            }
+
                             return (
                                 <li className={task.isDone ? 'is-done' : ''} key={task.id}>
                                     <input
@@ -68,7 +75,7 @@ export const TodolistItem = (props: Props) => {
                                             changeTaskStatusHandler(e, task.id)
                                         }}
                                     />
-                                    <EditableSpan value={task.title} />
+                                    <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
                                     <Button title={'x'} onClick={() => deleteTaskHandler(task.id)}/>
                                 </li>
                             )
