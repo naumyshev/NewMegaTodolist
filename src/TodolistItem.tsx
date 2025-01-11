@@ -3,6 +3,9 @@ import {Button} from "./Button.tsx";
 import {ChangeEvent} from "react";
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+
 
 type Props = {
     todolist: Todolist
@@ -61,7 +64,9 @@ export const TodolistItem = (props: Props) => {
                 <h3>
                     <EditableSpan value={title} onChange={changeTodolistTitleHandler} />
                 </h3>
-                <Button title={'x'} onClick={deleteTodolistHandler} />
+                <IconButton onClick={deleteTodolistHandler}>
+                    <DeleteIcon />
+                </IconButton>
             </div>
             <CreateItemForm onCreateItem={createTaskHandler} />
             {tasks.length === 0
@@ -84,7 +89,9 @@ export const TodolistItem = (props: Props) => {
                                         }}
                                     />
                                     <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
-                                    <Button title={'x'} onClick={() => deleteTaskHandler(task.id)}/>
+                                    <IconButton onClick={() => deleteTaskHandler(task.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </li>
                             )
                         })}
