@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button'
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import {TextField} from "@mui/material";
 
 type Props = {
     onCreateItem: (title: string) => void
@@ -7,41 +8,43 @@ type Props = {
 
 export const CreateItemForm = ({onCreateItem}:Props) => {
 
-    const [taskTitle, setTaskTitle] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
     const createTaskHandler = () => {
-        const trimmedTaskTitle = taskTitle.trim()
+        const trimmedTaskTitle = title.trim()
         if (trimmedTaskTitle !== '') {
             onCreateItem( trimmedTaskTitle)
-            setTaskTitle('')
+            setTitle('')
         } else {
             setError('Title is required')
         }
     }
 
-    const createTaskOnEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const createItemOnEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             createTaskHandler()
         }
     }
 
-    const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(e.target.value)
+    const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value)
         setError(null)
     }
 
     return (
         <div>
-            <input
-                className={error ? 'error' : ''}
-                value={taskTitle}
-                onChange={changeTaskTitleHandler}
-                onKeyDown={createTaskOnEnterHandler}
+            <TextField
+                label={'Enter a title'}
+                variant={'outlined'}
+                value={title}
+                size={'small'}
+                error={!!error}
+                helperText={error}
+                onChange={changeTitleHandler}
+                onKeyDown={createItemOnEnterHandler}
             />
-            {/*<Button title={'+'} onClick={createTaskHandler}/>*/}
             <Button variant={'contained'} onClick={createTaskHandler}>+</Button>
-            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };

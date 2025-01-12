@@ -5,6 +5,9 @@ import {EditableSpan} from "./EditableSpan.tsx";
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 
 
 type Props = {
@@ -37,10 +40,7 @@ export const TodolistItem = (props: Props) => {
         deleteTask(id, taskId)
     }
 
-    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
-        const newStatusValue = e.currentTarget.checked
-        changeTaskStatus(id, taskId, newStatusValue)
-    }
+
 
     const changeFilterHandler = (filter: FilterValues) => {
         changeFilter(id, filter)
@@ -72,30 +72,29 @@ export const TodolistItem = (props: Props) => {
             {tasks.length === 0
                 ? <p>No tasks</p>
                 : (
-                    <ul>
+                    <List>
                         {tasks.map(task => {
 
                             const changeTaskTitleHandler = (title: string) => {
                                 changeTaskTitle(id, task.id, title)
                             }
 
+                            const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                                const newStatusValue = e.currentTarget.checked
+                                changeTaskStatus(id, task.id, newStatusValue)
+                            }
+
                             return (
-                                <li className={task.isDone ? 'is-done' : ''} key={task.id}>
-                                    <input
-                                        type="checkbox"
-                                        checked={task.isDone}
-                                        onChange={(e) => {
-                                            changeTaskStatusHandler(e, task.id)
-                                        }}
-                                    />
+                                <ListItem className={task.isDone ? 'is-done' : ''} key={task.id}>
+                                    <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
                                     <EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
                                     <IconButton onClick={() => deleteTaskHandler(task.id)}>
                                         <DeleteIcon/>
                                     </IconButton>
-                                </li>
+                                </ListItem>
                             )
                         })}
-                    </ul>
+                    </List>
                 )
             }
 
