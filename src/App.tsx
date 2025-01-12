@@ -3,6 +3,11 @@ import {TodolistItem} from "./TodolistItem.tsx";
 import {useState} from "react";
 import {v1} from "uuid";
 import {CreateItemForm} from "./CreateItemForm.tsx";
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
 
 export type TaskType = {
     id: string
@@ -84,6 +89,15 @@ export const App = () => {
 
     return (
         <div className="app">
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton color="inherit">
+                        <MenuIcon />
+                    </IconButton>
+                    <Button color="inherit">Sign in</Button>
+                </Toolbar>
+            </AppBar>
+            <CreateItemForm onCreateItem={createTodolist}/>
             <div>
                 <h3>Add New Todolist</h3>
                 <CreateItemForm onCreateItem={createTodolist} />
