@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid2'
+import Paper from '@mui/material/Paper'
 
 export type TaskType = {
     id: string
@@ -121,18 +122,20 @@ export const App = () => {
 
                         return (
                             <Grid key={td.id}>
-                                <TodolistItem
-                                    key={td.id}
-                                    todolist={td}
-                                    tasks={filteredTasks}
-                                    deleteTask={deleteTask}
-                                    changeFilter={changeFilter}
-                                    createTask={createTask}
-                                    changeTaskStatus={changeTaskStatus}
-                                    deleteTodolist={deleteTodolist}
-                                    changeTaskTitle={changeTaskTitle}
-                                    changeTodolistTitle={changeTodolistTitle}
-                                />
+                                <Paper>
+                                    <TodolistItem
+                                        key={td.id}
+                                        todolist={td}
+                                        tasks={filteredTasks}
+                                        deleteTask={deleteTask}
+                                        changeFilter={changeFilter}
+                                        createTask={createTask}
+                                        changeTaskStatus={changeTaskStatus}
+                                        deleteTodolist={deleteTodolist}
+                                        changeTaskTitle={changeTaskTitle}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                    />
+                                </Paper>
                             </Grid>
                         )
                     })}
