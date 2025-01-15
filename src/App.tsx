@@ -92,7 +92,7 @@ export const App = () => {
 
     return (
         <div className="app">
-            <AppBar position="static">
+            <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
                     <Container maxWidth={'lg'}>
                         <IconButton color="inherit">
@@ -103,7 +103,7 @@ export const App = () => {
                 </Toolbar>
             </AppBar>
             <Container maxWidth={'lg'}>
-                <Grid container>
+                <Grid container sx={{ mb: '30px' }}>
                     <div>
                         <h3>Add New Todolist</h3>
                         <CreateItemForm onCreateItem={createTodolist}/>
@@ -122,7 +122,7 @@ export const App = () => {
 
                         return (
                             <Grid key={td.id}>
-                                <Paper>
+                                <Paper sx={{ p: '0 20px 20px 20px' }}>
                                     <TodolistItem
                                         key={td.id}
                                         todolist={td}

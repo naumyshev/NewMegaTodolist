@@ -1,6 +1,7 @@
-import Button from '@mui/material/Button'
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {TextField} from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import IconButton from '@mui/material/IconButton'
 
 type Props = {
     onCreateItem: (title: string) => void
@@ -11,7 +12,7 @@ export const CreateItemForm = ({onCreateItem}:Props) => {
     const [title, setTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
-    const createTaskHandler = () => {
+    const createItemHandler = () => {
         const trimmedTaskTitle = title.trim()
         if (trimmedTaskTitle !== '') {
             onCreateItem( trimmedTaskTitle)
@@ -23,7 +24,7 @@ export const CreateItemForm = ({onCreateItem}:Props) => {
 
     const createItemOnEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            createTaskHandler()
+            createItemHandler()
         }
     }
 
@@ -44,7 +45,9 @@ export const CreateItemForm = ({onCreateItem}:Props) => {
                 onChange={changeTitleHandler}
                 onKeyDown={createItemOnEnterHandler}
             />
-            <Button variant={'contained'} onClick={createTaskHandler}>+</Button>
+            <IconButton onClick={createItemHandler} color={'primary'}>
+                <AddBoxIcon />
+            </IconButton>
         </div>
     );
 };
