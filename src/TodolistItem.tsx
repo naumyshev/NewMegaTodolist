@@ -41,7 +41,6 @@ export const TodolistItem = (props: Props) => {
         deleteTask(id, taskId)
     }
 
-
     const changeFilterHandler = (filter: FilterValues) => {
         changeFilter(id, filter)
     }
