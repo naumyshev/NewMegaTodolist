@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid2'
 import Paper from '@mui/material/Paper'
+import {containerSx} from "./TodolistItem.styles.ts";
 
 export type TaskType = {
     id: string
@@ -94,18 +95,22 @@ export const App = () => {
         <div className="app">
             <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
-                    <Container maxWidth={'lg'}>
+                    <Container maxWidth={'lg'} sx={containerSx}>
                         <IconButton color="inherit">
                             <MenuIcon/>
                         </IconButton>
-                        <Button color="inherit">Sign in</Button>
+                        <div>
+                            <Button color="inherit">Sign in</Button>
+                            <Button color="inherit">Sign up</Button>
+                            <Button color="inherit">Faq</Button>
+                        </div>
                     </Container>
                 </Toolbar>
             </AppBar>
             <Container maxWidth={'lg'}>
-                <Grid container sx={{ mb: '30px' }}>
+                <Grid container sx={{mb: '30px'}}>
                     <div>
-                        <h3>Add New Todolist</h3>
+                    <h3>Add New Todolist</h3>
                         <CreateItemForm onCreateItem={createTodolist}/>
                     </div>
                 </Grid>
