@@ -8,7 +8,7 @@ import {
     deleteTodolistAC,
     todolistsReducer
 } from './todolists-reducer'
-import {FilterValues, Todolist} from "../App.tsx";
+import {FilterValues, Todolist} from "../app/App.tsx";
 
 let todolistId1: string
 let todolistId2: string
