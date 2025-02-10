@@ -24,9 +24,10 @@ import {
     createTaskAC,
     deleteTaskAC,
 } from "../model/tasks-reducer.ts";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "./store.ts";
 import {useState} from "react";
+import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 
 export type TaskType = {
     id: string
@@ -53,7 +54,7 @@ export const App = () => {
     const todolists = useSelector<RootState, Todolist[]>(state => state.todolists)
     const tasks = useSelector<RootState, TasksState>(state => state.tasks)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
