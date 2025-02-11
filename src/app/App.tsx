@@ -27,6 +27,8 @@ import {
 import {useState} from "react";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
+import {selectTodolists} from "../model/todolists-selectors.ts";
+import {selectTasks} from "../model/tasks-selectors.ts";
 
 export type TaskType = {
     id: string
@@ -50,8 +52,8 @@ export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
 
-    const todolists = useAppSelector(state => state.todolists)
-    const tasks = useAppSelector(state => state.tasks)
+    const todolists = useAppSelector(selectTodolists)
+    const tasks = useAppSelector(selectTasks)
 
     const dispatch = useAppDispatch()
 
