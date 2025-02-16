@@ -89,7 +89,7 @@ export const App = () => {
     }
 
     const deleteTodolist = (id: string) => {
-        dispatch(deleteTodolistAC(id))
+        dispatch(deleteTodolistAC({id}))
     }
 
     const createTodolist = (title: string) => {
