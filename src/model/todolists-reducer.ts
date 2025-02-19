@@ -3,6 +3,17 @@ import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
 
 const initialState: Todolist[] = []
 
+export const deleteTodolistAC = createAction<{id: string}>('todolists/deleteTodolist')
+
+export const createTodolistAC = createAction('todolists/createTodolist', (title: string) => {
+    return {payload: {title, id: nanoid()}}
+})
+
+export const changeTodolistTitleAC = createAction<{id: string, title: string}>('todolists/changeTodolistTitle')
+
+export const changeTodolistFilterAC = createAction<{id: string, filter: FilterValues}>('todolists/changeTodolistFilter')
+
+
 export const todolistsReducer = createReducer(initialState, builder => {
     builder
         .addCase(deleteTodolistAC, (state, action) => {
@@ -28,16 +39,9 @@ export const todolistsReducer = createReducer(initialState, builder => {
         })
 })
 
-export const deleteTodolistAC = createAction<{id: string}>('todolists/deleteTodolist')
 
-export const createTodolistAC = createAction('todolists/createTodolist', (title: string) => {
-    return {payload: {title, id: nanoid()}}
-})
 
-export const changeTodolistTitleAC = createAction<{id: string, title: string}>('todolists/changeTodolistTitle')
 
-export const changeTodolistFilterAC = createAction<{id: string, filter: FilterValues}>('todolists/changeTodolistFilter')
 
-export type CreateTodolistAction = ReturnType<typeof createTodolistAC>
 
 
