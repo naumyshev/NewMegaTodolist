@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid2'
 import Paper from '@mui/material/Paper'
 import {containerSx} from "../TodolistItem.styles.ts";
 import {NavButton} from "../NavButton.ts";
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
@@ -24,11 +24,13 @@ import {
     createTaskAC,
     deleteTaskAC,
 } from "../model/tasks-reducer.ts";
-import {useState} from "react";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
+import {selectThemeMode} from "./app-selectors.ts";
+import {changeThemeModeAC} from "./app-reducer.ts";
+import {getTheme} from "../common/theme/theme.ts";
 
 export type TaskType = {
     id: string
@@ -46,8 +48,6 @@ export type Todolist = {
     filter: FilterValues
 }
 
-type ThemeMode = 'dark' | 'light'
-
 export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
@@ -57,16 +57,8 @@ export const App = () => {
 
     const dispatch = useAppDispatch()
 
-    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
-
-    const theme = createTheme({
-        palette: {
-            mode: themeMode,
-            primary: {
-                main: '#087EA4',
-            },
-        },
-    })
+    const themeMode = useAppSelector(selectThemeMode)
+    const theme = getTheme(themeMode)
 
     const deleteTask = (todolistId: string, taskId: string) => {
         dispatch(deleteTaskAC({todolistId, taskId}))
@@ -101,7 +93,7 @@ export const App = () => {
     }
 
     const changeMode = () => {
-        setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+        dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
 
     return (
