@@ -1,5 +1,11 @@
-import {FilterValues, Todolist} from "../app/App.tsx";
+import {FilterValues} from "../app/App.tsx";
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
+
+export type Todolist = {
+    id: string
+    title: string
+    filter: FilterValues
+}
 
 const initialState: Todolist[] = []
 

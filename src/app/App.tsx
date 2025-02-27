@@ -7,21 +7,8 @@ import {getTheme} from "../common/theme/theme.ts";
 import {Header} from "@/common/components/Header/Header.tsx";
 import {Main} from "@/app/Main.tsx";
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
-export type TasksState = {
-    [id: string]: TaskType[]
-}
 
-export type Todolist = {
-    id: string
-    title: string
-    filter: FilterValues
-}
 
 export type FilterValues = 'all' | 'active' | 'completed'
 
