@@ -15,6 +15,7 @@ import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {selectTasks} from "@/model/tasks-selectors.ts";
 import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {TodolistTitle} from "@/TodolistTitle.tsx";
 
 
 type Props = {
@@ -47,28 +48,16 @@ export const TodolistItem = (props: Props) => {
         dispatch(changeTodolistFilterAC({id, filter}))
     }
 
-    const deleteTodolist = () => {
-        dispatch(deleteTodolistAC({id}))
-    }
-
     const createTask = (title: string) => {
         dispatch(createTaskAC({todolistId: id, title}))
     }
 
-    const changeTodolistTitle = (title: string) => {
-        dispatch(changeTodolistTitleAC({id, title}))
-    }
+
 
     return (
         <div>
-            <div className="container">
-                <h3>
-                    <EditableSpan value={title} onChange={changeTodolistTitle}/>
-                </h3>
-                <IconButton onClick={deleteTodolist}>
-                    <DeleteIcon/>
-                </IconButton>
-            </div>
+            <TodolistTitle todolist={props.todolist} />
+
             <CreateItemForm onCreateItem={createTask}/>
             {filteredTasks.length === 0
                 ? <p>No tasks</p>
