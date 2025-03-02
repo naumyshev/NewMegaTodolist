@@ -10,7 +10,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import {containerSx, getListItemSx} from './TodolistItem.styles'
-import {changeTodolistFilterAC, changeTodolistTitleAC, deleteTodolistAC, Todolist} from "@/model/todolists-reducer.ts";
+import {changeTodolistFilterAC, Todolist} from "@/model/todolists-reducer.ts";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {selectTasks} from "@/model/tasks-selectors.ts";
 import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
@@ -25,7 +25,7 @@ type Props = {
 export const TodolistItem = (props: Props) => {
 
     const {
-        todolist: {id, title, filter}
+        todolist: {id, filter}
     } = props
 
     const tasks = useAppSelector(selectTasks)
