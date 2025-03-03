@@ -3,7 +3,7 @@ import {CreateItemForm} from "@/CreateItemForm.tsx";
 import Grid from '@mui/material/Grid2'
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {createTodolistAC} from "@/model/todolists-reducer.ts";
-import {Todolists} from "@/Todolists.tsx";
+import {Todolists} from "@/features/todolists/ui/Todolists/Todolists.tsx";
 
 
 export const Main = () => {
