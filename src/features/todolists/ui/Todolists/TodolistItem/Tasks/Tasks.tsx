@@ -1,7 +1,7 @@
 import List from "@mui/material/List";
-import {Todolist} from "@/model/todolists-reducer.ts";
+import {Todolist} from "@/features/todolists/model/todolists-reducer.ts";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectTasks} from "@/model/tasks-selectors.ts";
+import {selectTasks} from "@/features/todolists/model/tasks-selectors.ts";
 import {TaskItem} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx";
 
 type Props = {
