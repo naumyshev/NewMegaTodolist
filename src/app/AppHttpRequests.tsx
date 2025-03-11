@@ -2,6 +2,7 @@ import {type ChangeEvent, type CSSProperties, useEffect, useState} from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import axios from 'axios'
 import {CreateItemForm, EditableSpan} from "@/common/components";
+import {BaseResponse} from "@/common/types";
 
 type Todolist = {
     addedDate: string
@@ -10,17 +11,7 @@ type Todolist = {
     title: string
 }
 
-export type FieldError = {
-    error: string
-    field: string
-}
 
-export type BaseResponse<T = {}> = {
-    data: T
-    resultCode: number
-    messages: string[]
-    fieldsErrors: FieldError[]
-}
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
