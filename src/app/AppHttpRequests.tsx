@@ -4,6 +4,7 @@ import {CreateItemForm, EditableSpan} from "@/common/components";
 import {BaseResponse} from "@/common/types";
 import {instance} from "@/common/instance/instance.ts";
 import {Todolist} from "@/features/todolists/api/todolistsApi.types.ts";
+import {todolistsApi} from "@/features/todolists/api/todolistsApi.ts";
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
@@ -11,23 +12,23 @@ export const AppHttpRequests = () => {
 
     useEffect(() => {
         // get todolists
-        instance.get<Todolist[]>('/todo-lists').then(res => setTodolists(res.data))
+        todolistsApi.getTodolists().then(res => setTodolists(res.data))
     }, [])
 
     const createTodolist = (title: string) => {
-        instance.post<BaseResponse<{ item: Todolist }>>('https://social-network.samuraijs.com/api/1.1/todo-lists', {title}).then(res => {
+        instance.post<BaseResponse<{ item: Todolist }>>('/todo-lists', {title}).then(res => {
             const newTodolist = res.data.data.item
             setTodolists([newTodolist, ...todolists])
         })
     }
 
     const deleteTodolist = (id: string) => {
-        instance.delete<BaseResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`)
+        instance.delete<BaseResponse>(`/todo-lists/${id}`)
             .then(() => setTodolists(todolists.filter(td=> td.id !== id)))
     }
 
     const changeTodolistTitle = (id: string, title: string) => {
-        instance.put<BaseResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`, {title})
+        todolistsApi.changeTodolistTitle({id, title})
             .then(() => setTodolists(todolists.map(todolist => todolist.id === id ? {...todolist, title} : todolist)))
     }
 
