@@ -1,8 +1,6 @@
 import {type ChangeEvent, type CSSProperties, useEffect, useState} from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import {CreateItemForm, EditableSpan} from "@/common/components";
-import {BaseResponse} from "@/common/types";
-import {instance} from "@/common/instance/instance.ts";
 import {Todolist} from "@/features/todolists/api/todolistsApi.types.ts";
 import {todolistsApi} from "@/features/todolists/api/todolistsApi.ts";
 
@@ -11,20 +9,21 @@ export const AppHttpRequests = () => {
     const [tasks, setTasks] = useState<any>({})
 
     useEffect(() => {
-        // get todolists
-        todolistsApi.getTodolists().then(res => setTodolists(res.data))
+        todolistsApi.getTodolists()
+            .then(res => setTodolists(res.data))
     }, [])
 
     const createTodolist = (title: string) => {
-        instance.post<BaseResponse<{ item: Todolist }>>('/todo-lists', {title}).then(res => {
-            const newTodolist = res.data.data.item
-            setTodolists([newTodolist, ...todolists])
-        })
+        todolistsApi.createTodolist(title)
+            .then(res => {
+                const newTodolist = res.data.data.item
+                setTodolists([newTodolist, ...todolists])
+            })
     }
 
     const deleteTodolist = (id: string) => {
-        instance.delete<BaseResponse>(`/todo-lists/${id}`)
-            .then(() => setTodolists(todolists.filter(td=> td.id !== id)))
+        todolistsApi.deleteTodolist(id)
+            .then(() => setTodolists(todolists.filter(td => td.id !== id)))
     }
 
     const changeTodolistTitle = (id: string, title: string) => {
@@ -32,13 +31,17 @@ export const AppHttpRequests = () => {
             .then(() => setTodolists(todolists.map(todolist => todolist.id === id ? {...todolist, title} : todolist)))
     }
 
-    const createTask = (todolistId: string, title: string) => {}
+    const createTask = (todolistId: string, title: string) => {
+    }
 
-    const deleteTask = (todolistId: string, taskId: string) => {}
+    const deleteTask = (todolistId: string, taskId: string) => {
+    }
 
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>, task: any) => {}
+    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>, task: any) => {
+    }
 
-    const changeTaskTitle = (task: any, title: string) => {}
+    const changeTaskTitle = (task: any, title: string) => {
+    }
 
     return (
         <div style={{margin: '20px'}}>
