@@ -10,8 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {NavButton} from "@/common/components/NavButton/NavButton.ts";
 import Switch from "@mui/material/Switch";
 import AppBar from "@mui/material/AppBar";
-import {containerSx} from "@/common/styles/container.styles.ts";
-
+import {containerSx} from "@/common/styles";
 
 export const Header = () => {
 
