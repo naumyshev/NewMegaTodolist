@@ -1,24 +1,13 @@
 import {type ChangeEvent, type CSSProperties, useEffect, useState} from 'react'
 import Checkbox from '@mui/material/Checkbox'
-import axios from 'axios'
 import {CreateItemForm, EditableSpan} from "@/common/components";
 import {BaseResponse} from "@/common/types";
 import {instance} from "@/common/instance/instance.ts";
-
-type Todolist = {
-    addedDate: string
-    id: string
-    order: number
-    title: string
-}
-
-
+import {Todolist} from "@/features/todolists/api/todolistsApi.types.ts";
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
     const [tasks, setTasks] = useState<any>({})
-
-
 
     useEffect(() => {
         // get todolists
