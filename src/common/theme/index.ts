@@ -1,2 +1,1 @@
-
-export {getTheme} from './theme';
+export { getTheme } from "./theme"
